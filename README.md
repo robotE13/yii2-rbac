@@ -1,5 +1,5 @@
-# Yii2-rbac [![Total Downloads](https://img.shields.io/packagist/dt/dektrium/yii2-rbac.svg?style=flat-square)](https://packagist.org/packages/dektrium/yii2-rbac) [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
-
+Yii2-rbac-fork
+=========
 
 Yii2-rbac provides a web interface for advanced access control and includes following features:
 
