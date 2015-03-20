@@ -1,4 +1,4 @@
-Yii2-rbac
+Yii2-rbac-fork
 =========
 
 Yii2-rbac provides a web interface for advanced access control and includes following features:
