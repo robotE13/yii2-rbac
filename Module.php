@@ -38,10 +38,7 @@ class Module extends BaseModule
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['@'],
-                        'matchCallback' => function () {
-                            return in_array(Yii::$app->user->identity->username, $this->admins);
-                        },
+                        'roles' => ['@']
                     ]
                 ],
             ],

@@ -38,7 +38,7 @@ class Bootstrap implements BootstrapInterface
         ];
         
         // if dektrium/user extension is installed, copy admin list from there
-        if (isset($app->extensions['dektrium/yii2-user'])) {
+        if (isset($app->extensions['dektrium/yii2-user']) && isset($app->getModule('rbac')->admins)) {
             $app->getModule('rbac')->admins = $app->getModule('user')->admins;
         }
     }
