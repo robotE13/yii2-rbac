@@ -1,27 +1,19 @@
 <?php
 
-/*
- * This file is part of the Dektrium project.
- *
- * (c) Dektrium project <http://github.com/dektrium>
- *
- * For the full copyright and license information, please view the LICENSE.md
- * file that was distributed with this source code.
- */
-
 namespace dektrium\rbac\models;
 
-use yii\base\Model;
-use yii\data\ArrayDataProvider;
-use yii\db\Query;
-
 /**
- * @author Dmitry Erofeev <dmeroff@gmail.com>
+ * Description of Search
+ *
+ * @author Tartharia
  */
-class Search extends Model
-{
-    /** @var string */
-    public $name;
+abstract class Search extends \yii\base\Model{
+    
+    /**
+     * Имя элемента авторизации.
+     * @var string
+     */
+    public $name;        
     
     /** @var string */
     public $description;
@@ -29,48 +21,44 @@ class Search extends Model
     /** @var string */
     public $rule_name;
     
-    /** @var \dektrium\rbac\components\DbManager */
+    /**
+     * Тип элемента авторизации.
+     * @var int
+     */
+    protected $itemType;
+    
+    /**
+     * @var \dektrium\rbac\components\DbManager|\dektrium\rbac\components\PhpManager
+     */
     protected $manager;
     
-    /** @var int */
-    protected $type;
-
-    /** @inheritdoc */
-    public function __construct($type, $config = [])
+    /**
+     * @inheritdoc
+     */
+    public function __construct($itemType, $config = [])
     {
         parent::__construct($config);
         $this->manager = \Yii::$app->authManager;
-        $this->type    = $type;
+        $this->itemType = $itemType;
     }
     
-    /** @inheritdoc */
-    public function scenarios()
+    public static function newFilter($itemType)
     {
-        return [
-            'default' => ['name', 'description', 'rule_name'],
-        ];
-    }
-    
-    /**
-     * @param  array              $params
-     * @return ActiveDataProvider
-     */
-    public function search($params = [])
-    {
-        $dataProvider = \Yii::createObject(ArrayDataProvider::className());
+        //\yii\helpers\VarDumper::dump(\Yii::$app->authManager->className());
+        //\Yii::$app->end();
         
-        $query = (new Query)->select(['name', 'description', 'rule_name'])
-                ->andWhere(['type' => $this->type])
-                ->from($this->manager->itemTable);
-        
-        if ($this->load($params) && $this->validate()) {
-            $query->andFilterWhere(['like', 'name', $this->name])
-                ->andFilterWhere(['like', 'description', $this->description])
-                ->andFilterWhere(['like', 'rule_name', $this->rule_name]);
+        switch (\Yii::$app->authManager->className()) {
+            case 'dektrium\rbac\components\PhpManager':
+                return new PhpSearch($itemType);
+
+            default:
+                throw new \yii\base\InvalidValueException(\Yii::t('system','Invalid AuthManager'));
         }
-        
-        $dataProvider->allModels = $query->all();
-        
-        return $dataProvider;
     }
+
+    /**
+     * 
+     * @param array $params
+     */    
+    abstract public function search($params = []);
 }

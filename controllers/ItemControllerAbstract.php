@@ -60,7 +60,7 @@ abstract class ItemControllerAbstract extends Controller
      */
     public function actionIndex()
     {
-        $filterModel = new Search($this->type);
+        $filterModel = Search::newFilter($this->type);
         return $this->render('index', [
             'filterModel'  => $filterModel,
             'dataProvider' => $filterModel->search(\Yii::$app->request->get()),
