@@ -42,14 +42,14 @@ abstract class Search extends \yii\base\Model{
         $this->itemType = $itemType;
     }
     
-    public static function newFilter($itemType)
+    public static function newFilter($itemType,$config=[])
     {
         //\yii\helpers\VarDumper::dump(\Yii::$app->authManager->className());
         //\Yii::$app->end();
         
         switch (\Yii::$app->authManager->className()) {
             case 'dektrium\rbac\components\PhpManager':
-                return new PhpSearch($itemType);
+                return new PhpSearch($itemType,$config=[]);
 
             default:
                 throw new \yii\base\InvalidValueException(\Yii::t('system','Invalid AuthManager'));
