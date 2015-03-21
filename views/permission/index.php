@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
         [
-            'attribute' => 'ruleName',
+            'attribute' => 'rule_name',
             'header'    => Yii::t('rbac', 'Rule name'),
             'options'   => [
                 'style' => 'width: 20%'

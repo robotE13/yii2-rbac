@@ -15,9 +15,17 @@ namespace dektrium\rbac\models;
  */
 class PhpSearch extends Search{
     
-    public function search($params = array()) {
-        \yii\helpers\VarDumper::dump($this->manager->getItems($this->itemType));
-        //\Yii::$app->end();
-        return new \yii\data\ArrayDataProvider(['allModels'=>$this->manager->getItems($this->itemType)]);
+        /** @inheritdoc */
+    public function scenarios()
+    {
+        return [
+            'default' => ['name', 'rule_name'],
+        ];
+    }
+    
+    public function search($params = array()) 
+    {
+        
+        return new \yii\data\ArrayDataProvider(['allModels'=>$this->manager->getItemsArray($this->itemType)]);
     }
 }
