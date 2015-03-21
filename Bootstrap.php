@@ -41,12 +41,17 @@ class Bootstrap implements BootstrapInterface
                     'class' => DbManager::className(),
                 ]);
             }
-
-            // if dektrium/user extension is installed, copy admin list from there
+        }
+        // register translations
+        $app->get('i18n')->translations['rbac*'] = [
+            'class'    => 'yii\i18n\PhpMessageSource',
+            'basePath' => __DIR__ . '/messages',
+        ];
+        
+        // if dektrium/user extension is installed, copy admin list from there
             if ($this->checkUserModuleInstalled($app)) {
                 $app->getModule('rbac')->admins = $app->getModule('user')->admins;
-            }   
-        }
+            }
     }
     
     /**
