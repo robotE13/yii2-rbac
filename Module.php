@@ -38,7 +38,7 @@ class Module extends BaseModule
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['@']
+                        'roles' => ['Supervisor']
                     ]
                 ],
             ],
