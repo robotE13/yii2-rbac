@@ -45,4 +45,13 @@ class PhpManager extends \yii\rbac\PhpManager implements ManagerInterface{
         }
         return $result;
     }
+    /**
+     * @todo Реализовать метод. Пока возвращает переданный в него ИД пользователя
+     * @param type $userId
+     * @return type
+     */
+    public function getItemsByUser($userId)
+    {
+        return $userId;
+    }
 }
