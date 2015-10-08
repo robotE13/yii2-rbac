@@ -31,7 +31,7 @@ class DbSearch extends Search
         $dataProvider = \Yii::createObject(ArrayDataProvider::className());
         
         $query = (new Query)->select(['name', 'description', 'rule_name'])
-                ->andWhere(['type' => $this->type])
+                ->andWhere(['type' => $this->itemType])
                 ->from($this->manager->itemTable);
         
         if ($this->load($params) && $this->validate()) {

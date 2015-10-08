@@ -50,6 +50,8 @@ abstract class Search extends \yii\base\Model{
         switch (\Yii::$app->authManager->className()) {
             case 'dektrium\rbac\components\PhpManager':
                 return new PhpSearch($itemType,$config=[]);
+            case 'dektrium\rbac\components\DbManager':
+                return new DbSearch($itemType,$config=[]);
 
             default:
                 throw new \yii\base\InvalidValueException(\Yii::t('system','Invalid AuthManager'));
